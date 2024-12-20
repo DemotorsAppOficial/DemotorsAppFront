@@ -1,0 +1,14 @@
+[
+    { "idCategoryImage": "1", "nameCategoryImage": "Horas de Trabajo" },
+    { "idCategoryImage": "2", "nameCategoryImage": "Filtro de Aceite" },
+    { "idCategoryImage": "3", "nameCategoryImage": "Conexión de Red" },
+    { "idCategoryImage": "4", "nameCategoryImage": "Alertas" },
+    { "idCategoryImage": "5", "nameCategoryImage": "Filtro de Aire" },
+    { "idCategoryImage": "6", "nameCategoryImage": "Cargas en las Líneas" },
+    { "idCategoryImage": "7", "nameCategoryImage": "Estado del Área" },
+    { "idCategoryImage": "8", "nameCategoryImage": "Estado del Motor" },
+    { "idCategoryImage": "9", "nameCategoryImage": "Aceite" },
+    { "idCategoryImage": "10", "nameCategoryImage": "Llenado Tanque" },
+    { "idCategoryImage": "11", "nameCategoryImage": "Panel de Control" },
+    { "idCategoryImage": "12", "nameCategoryImage": "Candelas" }
+]
