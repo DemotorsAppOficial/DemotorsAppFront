@@ -11,7 +11,8 @@ import SelectClient from '../../../components/Forms/SelectGroup/SelectClient'
 import { ClientsModel } from '../../../models/ClientsModel'
 import DatePickerFour from '../../../components/Forms/DatePicker/DatePickerFour'
 import { getClients } from '../../../services/clientService/clientService'
-import { getDetailsEquipments } from '../../../services/reportsService/reportsService'
+import { getDetailsEquipments, getimageReportEquipment } from '../../../services/reportsService/reportsService'
+import { ReportImageModel } from '../../../models/reportImageModel'
 
 const GeneralDataTable = () => {
 
@@ -29,6 +30,10 @@ const GeneralDataTable = () => {
     const [reportData, setReportData] = useState<ReportClientsModel[]>([])
 
     const [reportDataEquipment, setReportDataEquipment] = useState<ReportDetailsEquipmentModel[]>([])
+
+    const [reportImage, setReportImage] = useState<ReportImageModel[]>([])
+    
+    const [reportImageEquipment, setReportImageEquipment] = useState<ReportImageModel[]>([])
 
 
     const columnDefs: ColDef<ReportClientsModel>[] = [
@@ -80,7 +85,7 @@ const GeneralDataTable = () => {
 
     const columnDefsEquipo: ColDef<ReportDetailsEquipmentModel>[] = [
         {
-            field: 'DIRECTION',
+            field: 'ADDRESS_CLIENT',
             headerName: 'Direccion',
             filter: true,
             wrapHeaderText: true
@@ -107,13 +112,16 @@ const GeneralDataTable = () => {
 
     const handleReport = async () => {
         jsreport.serverUrl = 'http://localhost:5488'
+        console.log(reportData)
+        console.log(reportImage)
         const report = await jsreport.render({
             template: {
                 name: '/DEMotors/Reportes equipos del cliente/lista-equipo-clientes-main'
             },
             data: {
                 "nombreEmpresa": "Demotors",
-                "dataEquipos": reportData
+                "dataEquipos": reportData,
+                "dataImagenes": reportImage
             }
         })
 
@@ -128,12 +136,15 @@ const GeneralDataTable = () => {
             },
             data: {
                 "nombreEmpresa": "Demotors",
-                "dataDetalles": reportDataEquipment
+                "dataDetalles": reportDataEquipment,
+                "dataImagenes": reportImageEquipment
             }
         })
 
         report.openInWindow({ title: 'Lista de detalles de los equipos' })
     }
+
+    console.log(reportImage)
 
     const fetchClients = async () => {
         try {
@@ -159,8 +170,12 @@ const GeneralDataTable = () => {
 
     const onChangeTableReportDetailEquipment = async (noSerie: string) => {
         const { idClient, startDate, endDate } = details
+        console.log({ idClient, noSerie, startDate, endDate })
         const result = await getDetailsEquipments(idClient, noSerie, startDate, endDate)
+        const resultImage = await getimageReportEquipment(idClient, noSerie, startDate, endDate)
+        console.log(resultImage)
         setReportDataEquipment(result)
+        setReportImageEquipment(resultImage)
         // setReportDataEquipment(dataRowsEquipment.filter(data => data.NO_SERIE === noSerie))
     }
 
@@ -194,6 +209,7 @@ const GeneralDataTable = () => {
                                 setReportData={setReportData}
                                 setDetails={setDetails}
                                 setReportDataEquipment={setReportDataEquipment}
+                                setReportImage={setReportImage}
                             />
                         </div>
                     </div>

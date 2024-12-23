@@ -2,11 +2,11 @@ import flatpickr from 'flatpickr';
 import React, { useEffect, useState } from 'react';
 import { Spanish } from 'flatpickr/dist/l10n/es';
 import moment from 'moment'
-import { getServicesOrders } from '../../../services/reportsService/reportsService';
+import { getimageReportClient, getServicesOrders } from '../../../services/reportsService/reportsService';
 
 const DatePickerThree = (props:any) => {
 
-  const { client, setDataReportServicesOrder } = props
+  const { client, setDataReportServicesOrder, setReportImage } = props
 
   const [startDate, setStartDate] = useState(moment().startOf('months').format('YYYY-MM-DD'))
   const [endDate, setEndDate] = useState(moment().endOf('months').format('YYYY-MM-DD'))
@@ -50,7 +50,9 @@ const DatePickerThree = (props:any) => {
 
   const handleGetServicesOrders = async (idClient : number, dateOne : string, dateTwo : string) => {
     const result = await getServicesOrders(idClient, dateOne, dateTwo)
+    const resultImage = await getimageReportClient(idClient, dateOne, dateTwo)
     setDataReportServicesOrder(result)
+    setReportImage(resultImage)
 
   }
 

@@ -21,7 +21,7 @@ const UploadImageForm = ({ closeModal, loading, servicesOrder }: { closeModal: (
             return;
         }
         const formData = new FormData()
-        formData.append('image', image)
+        formData.append('file', image)
         formData.append('idServiceOrder', servicesOrder)
         try {
             loading(true)

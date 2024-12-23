@@ -2,11 +2,11 @@ import flatpickr from 'flatpickr';
 import React, { useEffect, useState } from 'react';
 import { Spanish } from 'flatpickr/dist/l10n/es';
 import moment from 'moment'
-import { getClientEquipments } from '../../../services/reportsService/reportsService';
+import { getClientEquipments, getimageReportClient } from '../../../services/reportsService/reportsService';
 
 const DatePickerFour = (props: any) => {
 
-    const { details, setReportData, setDetails, setReportDataEquipment } = props
+    const { details, setReportData, setDetails, setReportDataEquipment, setReportImage } = props
 
     const [startDate, setStartDate] = useState(moment().startOf('months').format('YYYY-MM-DD'))
     const [endDate, setEndDate] = useState(moment().endOf('months').format('YYYY-MM-DD'))
@@ -50,6 +50,11 @@ const DatePickerFour = (props: any) => {
 
     const handleGetEquipmentByClients = async (dateOne: string, dateTwo: string) => {
         const result = await getClientEquipments(details.idClient, dateOne, dateTwo)
+        if (details.idClient > 0) {
+            const resultImage = await getimageReportClient(details.idClient, dateOne, dateTwo)
+            setReportImage(resultImage)
+        }
+        console.log(details.idClient, dateOne, dateTwo)
         setReportData(result)
         setDetails({
             ...details,

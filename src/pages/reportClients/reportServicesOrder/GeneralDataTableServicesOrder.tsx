@@ -10,6 +10,7 @@ import { ClientsModel } from '../../../models/ClientsModel'
 import SelectClient from '../../../components/Forms/SelectGroup/SelectClient'
 import { getClients } from '../../../services/clientService/clientService'
 import DatePickerThree from '../../../components/Forms/DatePicker/DatePickerThree'
+import { ReportImageModel } from '../../../models/reportImageModel'
 
 const GeneralDataTableServicesOrder = () => {
 
@@ -20,6 +21,8 @@ const GeneralDataTableServicesOrder = () => {
     const [client, setClient] = useState(0)
 
     const [loading, setLoading] = useState(true)
+
+    const [reportImage, setReportImage] = useState<ReportImageModel[]>([])
 
     const columnDefs: ColDef<ReportServicesOrderModel>[] = [
         {
@@ -83,7 +86,8 @@ const GeneralDataTableServicesOrder = () => {
             },
             data: {
                 "nombreEmpresa": "Demotors",
-                "dataOrdenesServicios": dataReportServicesOrder
+                "dataOrdenesServicios": dataReportServicesOrder,
+                "dataImagenes": reportImage
             }
         })
 
@@ -114,6 +118,7 @@ const GeneralDataTableServicesOrder = () => {
                             <DatePickerThree
                                 client={client}
                                 setDataReportServicesOrder={setDataReportServicesOrder}
+                                setReportImage={setReportImage}
                             />
                         </div>
                     </div>
